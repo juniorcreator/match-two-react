@@ -2,7 +2,7 @@ import { create } from "zustand";
 import type { Item, Levels } from "../types";
 import { generateGameLevels } from "../utils";
 
-const maxLevels = 2;
+const maxLevels = 3;
 
 type State = {
   currentLevel: number;
@@ -57,7 +57,7 @@ const useGameStore = create<State & Action>((set, get) => ({
     cls: i === 0 ? "" : `lvl${i}`,
     hintCount: i > 3 ? 3 : 1,
   })),
-  timer: 0,
+  timer: 15,
 
   updateCurrentLevel: () => {
     const level = get().currentLevel;

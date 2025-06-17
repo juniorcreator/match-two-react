@@ -106,4 +106,5 @@ const GameStatus = ({ onStartGame, onTimeIsUp, onWinLvl, onResetGame }) => {
   }
 };
 
+
 export default memo(GameStatus);

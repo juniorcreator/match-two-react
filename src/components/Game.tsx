@@ -2,7 +2,6 @@ import { memo, useCallback, useEffect } from "react";
 import useGameStore from "../store/game.ts";
 import { useShallow } from "zustand/react/shallow";
 import "./Game.scss";
-import { playMusic } from "../utils";
 import GameBoard from "./Game/GameBoard.tsx";
 import ChooseGameBlock from "./Game/ChooseGameBlock.tsx";
 import Health from "./Game/Health/Health.tsx";
@@ -11,12 +10,10 @@ import FinishedLevels from "./Game/FinishedLevels.tsx";
 import { canvas } from "../utils/canvas.ts";
 import Timer from "./Game/Timer/Timer.tsx";
 import { useGameLogic } from "../hooks/useGameLogic.ts";
-import { useAudioControl } from "../hooks/useAudioControl.ts";
 import PlayPauseIcon from "./Game/PlayPauseIcon.tsx";
 import VolumeOnOfIcon from "./Game/VolumeOnOfIcon.tsx";
 import GameHints from "./Game/GameHints.tsx";
-import BtnNextLvl from "./Game/BtnNextLvl.tsx";
-const songs = playMusic();
+// import BtnNextLvl from "./Game/BtnNextLvl.tsx";
 
 const Game = () => {
   const {
@@ -42,14 +39,6 @@ const Game = () => {
   );
 
   const {
-    isPlaying,
-    volume,
-    handlePlay,
-    handlePause,
-    handleVolumeOff,
-    handleVolumeOn,
-  } = useAudioControl(songs);
-  const {
     items,
     handleShowHint,
     resetGame,
@@ -59,44 +48,37 @@ const Game = () => {
     handleItemClick,
     timeLeft,
     secondElementRef,
-  } = useGameLogic(songs);
+  } = useGameLogic();
+
   const handleWinLvl = useCallback(() => {
     setIsFinishedLvl(false);
     startLevel();
-  }, [setIsFinishedLvl, startLevel]);
+  }, [setIsFinishedLvl]);
 
   const handleStartGame = useCallback(() => {
     setShowNextLevel(false);
     setStartGame(true);
     startLevel();
-  }, [setShowNextLevel, startLevel]);
+  }, [setShowNextLevel]);
 
   const handleTimeIsUp = useCallback(() => {
     startLevel();
     setIsTimeIsUp(false);
-  }, [startLevel, setIsTimeIsUp]);
+  }, [setIsTimeIsUp]);
 
   const handleResetGame = useCallback(() => {
     resetGame();
-  }, [resetGame]);
+  }, []);
 
   useEffect(canvas, []);
-  useEffect(() => {
-    Object.values(songs).forEach((sound) => {
-      sound.load(); // load
-    });
-  }, []);
   console.log("Game.tsx rendered");
   return (
     <>
       <canvas id="particles"></canvas>
+      <button onClick={handleStartGame} className='border-2 relative z-10'>start game</button>
       {!isWinGame && <Health />}
       {!isWinGame && (
-        <PlayPauseIcon
-          isPlaying={isPlaying}
-          handlePause={handlePause}
-          handlePlay={handlePlay}
-        />
+        <PlayPauseIcon />
       )}
       {!isWinGame && ( // todo reduce rendering
         <Timer
@@ -113,11 +95,7 @@ const Game = () => {
       />
       {!isGameStarted && <ChooseGameBlock />}
       <div className="game">
-        <VolumeOnOfIcon
-          volume={volume}
-          handleVolumeOff={handleVolumeOff}
-          handleVolumeOn={handleVolumeOn}
-        />
+        <VolumeOnOfIcon />
         {!isWinGame && (
           <h2 className="text-xl text-white mb-1">level: {currentLevel + 1}</h2>
         )}
@@ -138,7 +116,7 @@ const Game = () => {
             handleShowHint={handleShowHint}
           />
         )}
-        <BtnNextLvl />
+        {/*<BtnNextLvl />*/}
         {isWinGame && <FinishedLevels />}
       </div>
     </>

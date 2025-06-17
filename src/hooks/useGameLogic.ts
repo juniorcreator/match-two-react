@@ -1,6 +1,6 @@
-import { useCallback, useRef, useState, useEffect, useMemo } from "react";
+import { useCallback, useRef, useState, useEffect } from "react";
 import useGameStore from "../store/game.ts";
-import { shuffleArray, formatTime } from "../utils";
+import {shuffleArray, formatTime, playMusic} from "../utils";
 import type { Levels } from "../types";
 import { useItemManager } from "./useItemManager.ts";
 import { useGameHints } from "./useGameHints.ts";
@@ -9,8 +9,9 @@ import { useResetGame } from "./useResetGame.ts";
 import { useStartLevel } from "./useStartLevel.ts";
 import { resetSound } from "../utils/soundUtils.ts";
 import { useShallow } from "zustand/react/shallow";
+const songs = playMusic();
 
-export const useGameLogic = (songs: any) => {
+export const useGameLogic = () => {
   const currentLevel = useGameStore(useShallow((state) => state.currentLevel));
   const gameLevels = useGameStore(useShallow((state) => state.gameLevels));
   const levelData = useGameStore(useShallow((state) => state.levelData));
@@ -22,6 +23,7 @@ export const useGameLogic = (songs: any) => {
     useShallow((state) => state.setIsFinishedLvl),
   );
   const setWinGame = useGameStore(useShallow((state) => state.setWinGame));
+  // const setTimer = useGameStore(useShallow((state) => state.setTimer));
   const updateCurrentLevel = useGameStore(
     useShallow((state) => state.updateCurrentLevel),
   );
@@ -181,6 +183,11 @@ export const useGameLogic = (songs: any) => {
     const newItems = shuffleArray(gameLevels[currentLevel]);
     showItems(newItems);
   }, [currentLevel, selectedContentType]);
+  useEffect(() => {
+    Object.values(songs).forEach((sound) => {
+      sound.load(); // load
+    });
+  }, []);
 
   return {
     items,

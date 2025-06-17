@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import {memo, useEffect} from "react";
 import confetti from "canvas-confetti";
 
 const VictoryCelebration = () => {
@@ -24,4 +24,4 @@ const VictoryCelebration = () => {
   return null;
 };
 
-export default VictoryCelebration;
+export default memo(VictoryCelebration);

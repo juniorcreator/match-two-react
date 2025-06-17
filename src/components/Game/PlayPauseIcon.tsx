@@ -1,9 +1,17 @@
 import PauseCircleIcon from "@mui/icons-material/PauseCircle";
 import NotStartedIcon from "@mui/icons-material/NotStarted";
 import { memo } from "react";
+import {useAudioControl} from "../../hooks/useAudioControl.ts";
 
-const PlayPauseIcon = ({ isPlaying, handlePause, handlePlay }) => {
+const PlayPauseIcon = () => {
   console.log("PlayPauseIcon component render");
+
+  const {
+    isPlaying,
+    handlePlay,
+    handlePause,
+  } = useAudioControl();
+
   return (
     <div className="absolute z-10 right-[60px] top-[14px]">
       {isPlaying ? (

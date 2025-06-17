@@ -1,5 +1,13 @@
-import React from "react";
-import type { GameBoardProps } from "../../types";
+import React, {memo} from "react";
+import type {GameItem} from "../../types";
+// import type {GameBoardProps, GameItem} from "../../types";
+type GameBoardProps = {
+  items: GameItem[];
+  onItemClick: (index: number) => void;
+  contentType: string;
+  levelClass: string;
+};
+
 
 const GameBoard: React.FC<GameBoardProps> = ({
   items,
@@ -32,4 +40,4 @@ const GameBoard: React.FC<GameBoardProps> = ({
   );
 };
 
-export default GameBoard;
+export default  memo(GameBoard);

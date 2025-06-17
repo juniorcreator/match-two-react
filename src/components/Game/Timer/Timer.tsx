@@ -40,7 +40,7 @@ const Timer = ({ timeLeft, currentLvl, ref }: TimerProps) => {
         <div
           className="bg-gradient-to-r from-pink-500 to-purple-500 h-4 rounded-full transition-all duration-500"
           style={{
-            width: `${(timer / (15 + currentLvl * 15)) * 100}%`,
+            width: `${(timer / 15) * 100}%`,
           }}
         ></div>
       </div>

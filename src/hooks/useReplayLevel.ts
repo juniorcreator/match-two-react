@@ -12,7 +12,7 @@ export const useReplayLevel = ({
 }: {
   items: Item[];
   levels: Levels[];
-  setItems: React.Dispatch<React.SetStateAction<Item[]>>;
+  setItems: Function;
   timers: RefObject<{
     [key: string]: ReturnType<typeof setTimeout>;
   }>;
@@ -47,5 +47,5 @@ export const useReplayLevel = ({
       }));
       setItems(deactivatedItems);
     }, 1500);
-  }, [items, levels, setItems, store.currentLevel, timers, timeLeft, initTime]);
+  }, [items, levels, setItems, timers, timeLeft, initTime]);
 };

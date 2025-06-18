@@ -14,10 +14,9 @@ export const useStartLevel = ({
   initTime: number;
   secondElementRef: RefObject<HTMLDivElement>;
 }) => {
-  const currentLevel = useGameStore(useShallow((state) => state.currentLevel));
-  const health = useGameStore(useShallow((state) => state.health));
+  // const health = useGameStore(useShallow((state) => state.health));
   const setTimer = useGameStore(useShallow((state) => state.setTimer));
-  const setGameOver = useGameStore(useShallow((state) => state.setGameOver));
+  const setGameOver = useGameStore((state) => state.setGameOver);
   const setIsTimeIsUp = useGameStore(
     useShallow((state) => state.setIsTimeIsUp),
   );
@@ -26,7 +25,9 @@ export const useStartLevel = ({
   );
   const handleLevelFailed = useCallback(() => {
     setMinusHealth();
-    if (health > 1) {
+    const health = useGameStore.getState().health;
+    console.log(health, " handleLevelFailed");
+    if (health > 0) {
       clearInterval(timers.current.timerInterval);
       timeLeft.current = 0;
       secondElementRef.current.textContent = String(
@@ -36,12 +37,19 @@ export const useStartLevel = ({
       setIsTimeIsUp(true);
     } else {
       setGameOver();
+      clearInterval(timers.current.timerInterval);
+      timeLeft.current = 0;
+      secondElementRef.current.textContent = String(
+        formatTime(timeLeft.current),
+      );
     }
-  }, [health]);
+  }, []);
 
-  return useCallback(() => {
+  return () => {
+    const currentLevel = useGameStore.getState().currentLevel;
     console.log(currentLevel, " store.currentLevel ");
-    timeLeft.current = initTime + currentLevel * 15; // Увеличиваем время на каждом уровне
+    timeLeft.current = initTime + currentLevel * 15; // on every lvl +
+    setTimer(timeLeft.current);
 
     timers.current.timerInterval = setInterval(() => {
       if (timeLeft.current <= 0) {
@@ -55,5 +63,5 @@ export const useStartLevel = ({
         );
       }
     }, 1000);
-  }, [currentLevel]);
+  };
 };

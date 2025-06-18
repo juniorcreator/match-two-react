@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState, useEffect } from "react";
 import useGameStore from "../store/game.ts";
-import {shuffleArray, formatTime, playMusic} from "../utils";
+import { shuffleArray, formatTime, playMusic } from "../utils";
 import type { Levels } from "../types";
 import { useItemManager } from "./useItemManager.ts";
 import { useGameHints } from "./useGameHints.ts";
@@ -23,7 +23,7 @@ export const useGameLogic = () => {
     useShallow((state) => state.setIsFinishedLvl),
   );
   const setWinGame = useGameStore(useShallow((state) => state.setWinGame));
-  // const setTimer = useGameStore(useShallow((state) => state.setTimer));
+  const setTimer = useGameStore(useShallow((state) => state.setTimer));
   const updateCurrentLevel = useGameStore(
     useShallow((state) => state.updateCurrentLevel),
   );
@@ -56,25 +56,38 @@ export const useGameLogic = () => {
     timeLeft,
     initTime,
   });
-  const resetGame = useResetGame({ songs, timeLeft, initTime, setLevels });
+  const resetGame = useResetGame({
+    songs,
+    timeLeft,
+    initTime,
+    setLevels,
+    setItems,
+  });
   const startLevel = useStartLevel({
     timers,
     timeLeft,
     initTime,
     secondElementRef,
   });
+  const updateLevelsValues = () => {
+    const newLevels = [...levels];
+    const spendTime = initTime + currentLevel * 15 - timeLeft.current;
+    console.log(spendTime, " spendTime");
+    newLevels[currentLevel].isFinished = true;
+    newLevels[currentLevel].time.passedIn = formatTime(spendTime);
+    newLevels[currentLevel].time.currentTime = formatTime(
+      initTime + currentLevel * 15,
+    );
+    setLevels(newLevels);
+  };
 
   const handleItemClick = useCallback(
     async (index: number) => {
       if (blocked || !items[index].clickable) return;
 
       console.log(levels, " levels");
+      console.log(items, " items");
 
-      //before open play
-      // resetSound(songs.close);
-      // resetSound(songs.match);
-      //before open play
-      // await songs.open.play();
       const newItems = [...items];
       newItems[index].active = true;
       newItems[index].clickable = false;
@@ -83,6 +96,7 @@ export const useGameLogic = () => {
       selected.current.push({ index, value: newItems[index].value });
 
       if (selected.current.length === 2) {
+        console.log("selected.current.length === 2");
         // clicked and selected 2 cube
         const [first, second] = selected.current;
         const newLevels = [...levels];
@@ -99,19 +113,18 @@ export const useGameLogic = () => {
             // finished lvl
             if (isFinishedGame) {
               clearInterval(timers.current.timerInterval);
+              const spendTime = initTime + currentLevel * 15 - timeLeft.current;
+              console.log(spendTime, " spendTime");
               setIsFinishedLvl(true);
-              const newLevels = [...levels];
-              newLevels[currentLevel].isFinished = true;
-              setLevels(newLevels);
+
+              updateLevelsValues();
               setWinGame(true);
               resetSound(songs.bgMusic);
               await songs.winGame.play();
               songs.winGame.loop = true;
             } else {
-              // not finished game
-              const newLevels = [...levels];
-              newLevels[currentLevel].isFinished = true;
-              setLevels(newLevels);
+              // not finished game but finished level
+              updateLevelsValues();
               clearInterval(timers.current.timerInterval);
 
               setTimeout(() => {
@@ -124,9 +137,11 @@ export const useGameLogic = () => {
                 setIsFinishedLvl(true);
                 setShowNextLevel(true);
                 const currentLevel = updateCurrentLevel();
+                setTimer(initTime + currentLevel * 15);
                 secondElementRef.current!.textContent = String(
                   formatTime(initTime + currentLevel * 15),
                 );
+                console.log(currentLevel, " in usegamelogic");
               }, 700);
             }
           } else {

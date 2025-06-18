@@ -64,7 +64,7 @@ const GameStatus = ({ onStartGame, onTimeIsUp, onWinLvl, onResetGame }) => {
     </div>
   );
   const winGame = (
-    <div className="game-status absolute bottom-[50%] left-1/2 translate-[-50%]">
+    <div className="game-status absolute bottom-[25%] left-1/2 translate-[-50%]">
       <div className="h-full flex justify-center items-center">
         <VictoryCelebration />
         <div
@@ -105,6 +105,5 @@ const GameStatus = ({ onStartGame, onTimeIsUp, onWinLvl, onResetGame }) => {
     return <>{winGame}</>;
   }
 };
-
 
 export default memo(GameStatus);

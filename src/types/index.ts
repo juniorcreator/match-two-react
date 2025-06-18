@@ -5,7 +5,13 @@ export type Item = {
   bgColor: string;
   content: string;
 };
+
+type LevelsTime = {
+  passedIn: string;
+  currentTime: string;
+};
 export type Levels = {
+  time: LevelsTime;
   tries: number;
   boardLevel: number;
   isFinished: boolean;
@@ -19,11 +25,4 @@ export type GameItem = {
   bgColor: string;
   content: string;
   value: string;
-};
-
-export type GameBoardProps = {
-  items: GameItem[];
-  onItemClick: (index: number) => void;
-  contentType: string;
-  levelClass: string;
 };

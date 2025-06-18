@@ -1,17 +1,19 @@
-import React, {type RefObject, useCallback} from "react";
+import { type RefObject, useCallback } from "react";
+import { shuffleArray } from "../utils";
 import useGameStore from "../store/game";
-import type { Levels } from "../types";
 
 export const useResetGame = ({
   songs,
   timeLeft,
   initTime,
   setLevels,
+  setItems,
 }: {
   songs: any;
   timeLeft: RefObject<number>;
   initTime: number;
-  setLevels: React.Dispatch<React.SetStateAction<Levels[]>>;
+  setLevels: Function;
+  setItems: Function;
 }) => {
   const store = useGameStore();
 
@@ -23,12 +25,20 @@ export const useResetGame = ({
     store.setStartGame(false);
     store.resetCurrentLevel();
     store.setWinGame(false);
+    store.setIsFinishedLvl(false);
 
     timeLeft.current = initTime;
 
     store.setItemContent(store.selectedContentType);
     store.setHealth(3);
-    store.resetLvlData();
-    setLevels(store.levelData);
+    store.setTimer(15);
+    setLevels(store.resetLvlData());
+    setItems(
+      shuffleArray(
+        useGameStore.getState().gameLevels[
+          useGameStore.getState().currentLevel
+        ],
+      ),
+    );
   }, [songs, timeLeft, initTime, setLevels, store]);
 };

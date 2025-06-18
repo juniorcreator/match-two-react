@@ -75,11 +75,8 @@ const Game = () => {
   return (
     <>
       <canvas id="particles"></canvas>
-      <button onClick={handleStartGame} className='border-2 relative z-10'>start game</button>
       {!isWinGame && <Health />}
-      {!isWinGame && (
-        <PlayPauseIcon />
-      )}
+      {!isWinGame && <PlayPauseIcon />}
       {!isWinGame && ( // todo reduce rendering
         <Timer
           currentLvl={currentLevel}

@@ -1,6 +1,6 @@
 import { type RefObject, useCallback } from "react";
-import type { Item, Levels } from "../types";
-import useGameStore from "../store/game.ts";
+import type { Item, Levels } from "@/types";
+import useGameStore from "@/store/game.ts";
 
 export const useReplayLevel = ({
   items,

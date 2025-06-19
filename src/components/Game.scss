@@ -229,13 +229,6 @@
   border-radius: 1rem;
 }
 
-.flip-card-front {
-  //background-color: #bbb;
-  color: black;
-}
-
 .flip-card-back {
-  //background-color: dodgerblue;
-  color: white;
   transform: rotateY(180deg);
 }

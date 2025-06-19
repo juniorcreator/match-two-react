@@ -1,4 +1,4 @@
-import type { Item } from "../types";
+import type { Item } from "@/types";
 
 export const bgColorPalette = [
   "bg-sky-500",

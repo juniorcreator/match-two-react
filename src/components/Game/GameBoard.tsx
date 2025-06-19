@@ -1,13 +1,5 @@
-import React, {memo} from "react";
-import type {GameItem} from "../../types";
-// import type {GameBoardProps, GameItem} from "../../types";
-type GameBoardProps = {
-  items: GameItem[];
-  onItemClick: (index: number) => void;
-  contentType: string;
-  levelClass: string;
-};
-
+import React, { memo } from "react";
+import type { GameBoardProps } from "@/types";
 
 const GameBoard: React.FC<GameBoardProps> = ({
   items,
@@ -29,7 +21,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
           <div className="flip-card-inner">
             <div className="flip-card-front"></div>
             <div
-              className={`flip-card-back flex items-center justify-center ${item.bgColor}`}
+              className={`flip-card-back flex items-center justify-center text-white ${item.bgColor}`}
             >
               <h1>{item.content}</h1>
             </div>
@@ -40,4 +32,4 @@ const GameBoard: React.FC<GameBoardProps> = ({
   );
 };
 
-export default  memo(GameBoard);
+export default memo(GameBoard);

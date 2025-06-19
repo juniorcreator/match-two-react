@@ -1,16 +1,12 @@
 import VolumeOffIcon from "@mui/icons-material/VolumeOff";
 import VolumeMuteIcon from "@mui/icons-material/VolumeMute";
 import { memo } from "react";
-import {useAudioControl} from "../../hooks/useAudioControl.ts";
+import { useAudioControl } from "@/hooks/useAudioControl.ts";
 
 const VolumeOnOfIcon = () => {
   console.log("VolumeOnOfIcon component render");
 
-  const {
-    volume,
-    handleVolumeOff,
-    handleVolumeOn,
-  } = useAudioControl();
+  const { volume, handleVolumeOff, handleVolumeOn } = useAudioControl();
 
   return (
     <div className="absolute z-10 right-3 top-3">

@@ -1,6 +1,6 @@
 import { memo } from "react";
 import "./Health.scss";
-import useGameStore from "../../../store/game.ts";
+import useGameStore from "@/store/game.ts";
 import { useShallow } from "zustand/react/shallow";
 
 const Health = () => {

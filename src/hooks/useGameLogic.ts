@@ -1,13 +1,13 @@
 import { useCallback, useRef, useState, useEffect } from "react";
-import useGameStore from "../store/game.ts";
-import { shuffleArray, formatTime, playMusic } from "../utils";
-import type { Levels } from "../types";
+import useGameStore from "@/store/game.ts";
+import { shuffleArray, formatTime, playMusic } from "@/utils";
+import type { Levels } from "@/types";
 import { useItemManager } from "./useItemManager.ts";
 import { useGameHints } from "./useGameHints.ts";
 import { useReplayLevel } from "./useReplayLevel.ts";
 import { useResetGame } from "./useResetGame.ts";
 import { useStartLevel } from "./useStartLevel.ts";
-import { resetSound } from "../utils/soundUtils.ts";
+import { resetSound } from "@/utils/soundUtils.ts";
 import { useShallow } from "zustand/react/shallow";
 const songs = playMusic();
 

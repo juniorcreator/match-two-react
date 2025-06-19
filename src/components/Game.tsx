@@ -1,5 +1,5 @@
 import { memo, useCallback, useEffect } from "react";
-import useGameStore from "../store/game.ts";
+import useGameStore from "@/store/game.ts";
 import { useShallow } from "zustand/react/shallow";
 import "./Game.scss";
 import GameBoard from "./Game/GameBoard.tsx";
@@ -7,9 +7,9 @@ import ChooseGameBlock from "./Game/ChooseGameBlock.tsx";
 import Health from "./Game/Health/Health.tsx";
 import GameStatus from "./Game/GameStatus/GameStatus.tsx";
 import FinishedLevels from "./Game/FinishedLevels.tsx";
-import { canvas } from "../utils/canvas.ts";
+import { canvas } from "@/utils/canvas.ts";
 import Timer from "./Game/Timer/Timer.tsx";
-import { useGameLogic } from "../hooks/useGameLogic.ts";
+import { useGameLogic } from "@/hooks/useGameLogic.ts";
 import PlayPauseIcon from "./Game/PlayPauseIcon.tsx";
 import VolumeOnOfIcon from "./Game/VolumeOnOfIcon.tsx";
 import GameHints from "./Game/GameHints.tsx";

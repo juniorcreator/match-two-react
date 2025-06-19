@@ -1,7 +1,7 @@
-import { formatTime } from "../../../utils";
+import { formatTime } from "@/utils";
 import { memo, type Ref, type RefObject } from "react";
 import "./Timer.scss";
-import useGameStore from "../../../store/game.ts";
+import useGameStore from "@/store/game.ts";
 type TimerProps = {
   timeLeft: RefObject<number>;
   currentLvl: number;

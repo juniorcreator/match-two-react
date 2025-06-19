@@ -1,6 +1,6 @@
 import "./GameStatus.scss";
 import { createPortal } from "react-dom";
-import useGameStore from "../../../store/game.ts";
+import useGameStore from "@/store/game.ts";
 import VictoryCelebration from "../VictoryCelebration.tsx";
 import { memo } from "react";
 import { useShallow } from "zustand/react/shallow";
@@ -89,19 +89,19 @@ const GameStatus = ({ onStartGame, onTimeIsUp, onWinLvl, onResetGame }) => {
     return <>{createPortal(startGame, document.body)}</>;
   }
   if (isTimeIsUp && !isGameOver) {
-    console.log(isTimeIsUp, " store.isTimeIsUp");
+    console.log(isTimeIsUp, " isTimeIsUp && !isGameOver");
     return <>{createPortal(timeIsUp, document.body)}</>;
   }
   if (isGameOver) {
-    console.log(isTimeIsUp, " store.isTimeIsUp");
+    console.log(isTimeIsUp, " isGameOver");
     return <>{createPortal(gameOver, document.body)}</>;
   }
   if (isFinishedLvl && !isWinGame && showNextLevel) {
-    console.log(isTimeIsUp, " store.isTimeIsUp");
+    console.log(isTimeIsUp, " isFinishedLvl && !isWinGame && showNextLevel");
     return <>{createPortal(winLvl, document.body)}</>;
   }
   if (isWinGame) {
-    console.log(isTimeIsUp, " store.isTimeIsUp");
+    console.log(isTimeIsUp, " isWinGame");
     return <>{winGame}</>;
   }
 };

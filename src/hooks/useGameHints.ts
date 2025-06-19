@@ -1,4 +1,4 @@
-import type { Item, Levels } from "../types";
+import type { Item, Levels } from "@/types";
 import { useCallback } from "react";
 
 export const useGameHints = (

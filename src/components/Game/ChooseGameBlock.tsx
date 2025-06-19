@@ -1,8 +1,8 @@
 import "./ChooseGameBlock.scss";
 import { memo, useEffect, useState } from "react";
-import useGameStore from "../../store/game.ts";
-import { playMusic } from "../../utils";
-import { resetSound } from "../../utils/soundUtils.ts";
+import useGameStore from "@/store/game.ts";
+import { playMusic } from "@/utils";
+import { resetSound } from "@/utils/soundUtils.ts";
 import { useShallow } from "zustand/react/shallow";
 
 const songs = playMusic();

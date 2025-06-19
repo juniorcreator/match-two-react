@@ -1,6 +1,6 @@
-import { formatTime } from "../utils";
+import { formatTime } from "@/utils";
 import { type RefObject, useCallback } from "react";
-import useGameStore from "../store/game.ts";
+import useGameStore from "@/store/game.ts";
 import { useShallow } from "zustand/react/shallow";
 
 export const useStartLevel = ({

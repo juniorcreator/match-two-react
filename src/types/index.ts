@@ -26,3 +26,9 @@ export type GameItem = {
   content: string;
   value: string;
 };
+export type GameBoardProps = {
+  items: GameItem[];
+  onItemClick: (index: number) => void;
+  contentType: string;
+  levelClass: string;
+};

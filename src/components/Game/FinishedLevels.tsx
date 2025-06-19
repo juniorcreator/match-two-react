@@ -1,4 +1,4 @@
-import useGameStore from "../../store/game.ts";
+import useGameStore from "@/store/game.ts";
 
 const FinishedLevels = () => {
   const levels = useGameStore((store) => store.levelData).filter(

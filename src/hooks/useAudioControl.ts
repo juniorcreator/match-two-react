@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import {playMusic} from "../utils";
+import { playMusic } from "@/utils";
 const songs = playMusic();
 
 export const useAudioControl = () => {

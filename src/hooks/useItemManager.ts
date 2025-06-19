@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
-import { shuffleArray } from "../utils";
-import type { Item } from "../types";
+import { shuffleArray } from "@/utils";
+import type { Item } from "@/types";
 
 export const useItemManager = (initialItems: Item[]) => {
   const [items, setItems] = useState<Item[]>(shuffleArray(initialItems));

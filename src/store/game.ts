@@ -1,9 +1,9 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
-import type { Item, Levels } from "../types";
-import { generateGameLevels } from "../utils";
+import type { Item, Levels } from "@/types";
+import { generateGameLevels } from "@/utils";
 
-const maxLevels = 2;
+const maxLevels = 13;
 
 type State = {
   currentLevel: number;

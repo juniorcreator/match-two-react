@@ -1,5 +1,5 @@
 import { type RefObject, useCallback } from "react";
-import { shuffleArray } from "../utils";
+import { shuffleArray } from "@/utils";
 import useGameStore from "../store/game";
 
 export const useResetGame = ({
